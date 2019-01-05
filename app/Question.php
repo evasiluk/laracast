@@ -16,7 +16,4 @@ class Question extends Model
     public function rubric() {
         return $this->belongsTo('App\Rubric');
     }
-
-
-
 }

@@ -27,7 +27,7 @@
 
                     <td><a href="{{action("AdminController@edit", $question->id)}}">{{$question->question}}</a></td>
 
-                    <td>{{ $rubrics_ar[$question->rubric_id] }}</td>
+                    <td>{{ $question->rubric->name }}</td>
 
                     <td>{{$question->publish? "Публикуется" : "Не публикуется"}}</td>
 

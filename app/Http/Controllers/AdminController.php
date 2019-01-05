@@ -24,17 +24,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-
         $questions = Question::all();
-        $rubrics = Rubric::all();
 
-        $rubrics_ar = [];
-
-        foreach($rubrics as $rubric) {
-            $rubrics_ar[$rubric->id] = $rubric->name;
-        }
-
-        return view("questions.admin", compact("questions", "rubrics", "rubrics_ar"));
+        return view("questions.admin", compact("questions"));
     }
 
     /**
