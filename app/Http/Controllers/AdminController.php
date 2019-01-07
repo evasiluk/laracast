@@ -24,8 +24,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $questions = Question::all();
-
+        $questions = Question::paginate(10);
+        
         return view("questions.admin", compact("questions"));
     }
 

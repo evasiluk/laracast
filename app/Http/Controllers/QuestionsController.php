@@ -9,6 +9,7 @@ use App\User;
 
 class QuestionsController extends Controller
 {
+    public $onPage = 10;
 
     public function __construct() {
         $this->middleware("auth")->only(["create", "store", "personal"]);
@@ -24,9 +25,9 @@ class QuestionsController extends Controller
         $current_rubric = request('rubric') ? intval(request('rubric')) : "";
 
         if($current_rubric) {
-            $questions = Rubric::find($current_rubric)->questions->where("publish", "=", "1");
+            $questions = Question::where("publish", "=", "1")->where("rubric_id", "=", $current_rubric)->paginate($this->onPage);
         } else {
-            $questions = Question::where('publish', '=', '1')->get();
+            $questions = Question::where('publish', '=', '1')->paginate($this->onPage);
         }
 
         return view('questions.index', compact('questions', 'rubrics', 'current_rubric'));
@@ -64,7 +65,8 @@ class QuestionsController extends Controller
     }
 
     public function personal() {
-        $questions = User::find(auth()->id())->questions->where("publish", "=", "1");
+
+        $questions = Question::where("publish", "=", "1")->where("owner", "=", auth()->id())->paginate($this->onPage);
         return view("questions.personal", compact('questions'));
     }
 
