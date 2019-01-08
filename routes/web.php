@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get("/faq", "QuestionsController@index");
 Route::get("/personal", "QuestionsController@personal");
+Route::get("/notifications", "NotificationsController@personal");
 Route::get("/ask", "QuestionsController@create");
 Route::post("/ask", "QuestionsController@store");
 Route::get("/admin", "AdminController@index");

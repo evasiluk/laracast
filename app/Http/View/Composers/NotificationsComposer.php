@@ -6,7 +6,7 @@ use App\User;
 class NotificationsComposer {
     public function compose(View $view) {
         if(auth()->check()) {
-            $view->with('notify_qnt', auth()->user()->notifications->count());
+            $view->with('notify_qnt', auth()->user()->unreadNotifications->count());
         }
         return true;
     }
