@@ -35,4 +35,32 @@ class User extends Authenticatable
     public function IsAdmin() {
         return $this->admin == 1;
     }
+
+    public function votes()
+    {
+        return $this->belongsToMany('App\Question', 'question_votes')->withTimestamps();;
+    }
+
+    public function votedFor(Question $question)
+    {
+        return $question->votes->contains('user_id', $this->id);
+    }
+
+    public function toggleVote(Question $question)
+    {
+        if($this->votedFor($question)) {
+            return $this->unvoteFor($question);
+        }
+        $this->voteFor($question);
+    }
+
+    public function voteFor(Question $question)
+    {
+        $this->votes()->attach($question->id);
+    }
+
+    public function unvoteFor(Question $question)
+    {
+        $this->votes()->detach($question->id);
+    }
 }

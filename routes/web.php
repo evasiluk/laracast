@@ -23,6 +23,7 @@ Route::post("/ask", "QuestionsController@store");
 Route::get("/admin", "AdminController@index");
 Route::get("/admin/{question}/edit", "AdminController@edit");
 Route::post("/admin/{question}/edit", "AdminController@update");
+Route::post('/votes/{question}', 'VotesController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

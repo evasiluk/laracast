@@ -29,11 +29,17 @@
             @foreach($questions as $i=>$question)
                 <div class="card">
                     <div class="card-header" id="heading{!! $i !!}">
+                        <form method="post" action="/votes/{{$question->id}}">
+                            {{csrf_field()}}
+                            <button class="btn {{(Auth::check() && Auth::user()->votedFor($question))? "btn-success" : "btn-primary"}}">{{$question->votes->count()}}</button>
+                        </form>
+
                         <h5 class="mb-0">
                             № {{ $question->id }}<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{!! $i !!}" aria-expanded="true" aria-controls="collapse{!! $i !!}">
                                  {{$question->question}}
                             </a>
                         </h5>
+
                     </div>
                     <div id="collapse{!! $i !!}" class="collapse" aria-labelledby="heading{!! $i !!}" data-parent="#accordion">
                         <div class="card-body">
