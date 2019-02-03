@@ -5,7 +5,21 @@
 @section('content')
 <div class="container col-md-8 col-md-offset-2">
         <div class="well well bs-component">
-            <form class="form-horizontal" method="post" action="{{ action('QuestionsController@store') }}">
+        @if(session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+            <p><a href="{{ action('QuestionsController@create') }}">Задать новый вопрос</a></p>
+        @elseif(count($limits_status))
+            @if(isset($limits_status["global_limit_reached"]))
+                <p class="alert alert-danger">Сервис принял максимальное количество вопросов на сегодня.</p>
+            @endif
+            @if(isset($limits_status["personal_limit_reached"]))
+               <p class="alert alert-danger">Ваш дневной лимит вопросов исчерпан.</p>
+            @endif
+            <p class="alert alert-danger">Новый вопрос можно будет задать в следующий рабочий день.</p>
+        @else
+        <form class="form-horizontal" method="post" action="{{ action('QuestionsController@store') }}">
             @foreach ($errors->all() as $error)
                 <p class="alert alert-danger">{{ $error }}</p>
             @endforeach
@@ -44,6 +58,7 @@
                     </div>
                 </fieldset>
             </form>
+        @endif
         </div>
     </div>
 @endsection
