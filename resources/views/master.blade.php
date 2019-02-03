@@ -1,13 +1,14 @@
 <html>
 <head>
     <title> @yield('title') </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     @include('shared.navbar')
-    <div id="add">
+    <div id="app">
         @yield('content')
     </div>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

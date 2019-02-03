@@ -16,7 +16,10 @@ class VotesController extends Controller
 
     public function store(Question $question)
     {
+//        auth()->user()->toggleVote($question);
+//        return back();
+
         auth()->user()->toggleVote($question);
-        return back();
+        return $question->fresh()->votes->count();
     }
 }
