@@ -24,6 +24,7 @@ Route::get("/admin", "AdminController@index");
 Route::get("/admin/{question}/edit", "AdminController@edit");
 Route::post("/admin/{question}/edit", "AdminController@update");
 Route::post('/votes/{question}', 'VotesController@store');
+Route::post('/admin/settings', 'SettingsController@update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Question;
 use App\Rubric;
+use App\Settings;
 
 class AdminController extends Controller
 {
@@ -25,8 +26,9 @@ class AdminController extends Controller
     public function index()
     {
         $questions = Question::paginate(10);
+        $settings = Settings::first();
         
-        return view("questions.admin", compact("questions"));
+        return view("questions.admin", compact("questions", "settings"));
     }
 
     /**
