@@ -11,6 +11,7 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+
+Broadcast::channel('question-liked.{owner_id}', function ($user, $owner_id) {
+    return (int) $user->id == $owner_id;
 });

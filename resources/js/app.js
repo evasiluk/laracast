@@ -31,6 +31,11 @@ Vue.component('admin-settings', require('./components/AdminSettingsComponent.vue
  */
 
 const app = new Vue({
-    el: '#app'
-
+    el: '#app',
+    created: function() {
+        window.Echo.private('question-liked.' + user)
+            .listen('QuestionWasLiked', (e) => {
+            alert("Ваш вопрос кому-то понравился");
+    });
+    }
 });
