@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Question;
 use App\Rubric;
 use App\Settings;
+use App\Jobs\SendEmailAboutAnswer;
 
 class AdminController extends Controller
 {
@@ -104,26 +105,16 @@ class AdminController extends Controller
         $question->save();
 
         if($send_notify) {
-            $this->notifyUser($question);
+			$this->notifyUser($question);
         }
 
         return redirect(action("AdminController@edit", $question->id))->with("status", "Изменения сохранены");
     }
 
     public function notifyUser(Question $question) {
-        Mail::to($question->user->email)->send(
-            new NotifyAboutAnswer($question)
-        );
-        $question->user->notify(new QuestionAnswered($question));
+        SendEmailAboutAnswer::dispatch($question);
     }
 
-//    public function notifyUser($data) {
-//        Mail::send('emails.ticket', $data, function ($message) {
-//            $message->from('info@laracast.loc', 'Learning Laravel');
-//
-//            $message->to('yourEmail@domain.com')->subject('There is a new ticket!');
-//        });
-//    }
 
     /**
      * Remove the specified resource from storage.
