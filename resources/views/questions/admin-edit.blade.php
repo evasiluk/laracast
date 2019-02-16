@@ -37,7 +37,7 @@
               <div class="form-group">
                  <label class="col-lg-2 control-label">Ответ</label>
                  <div class="col-lg-10">
-                     <textarea class="form-control" rows="10" name="answer">{{ $question->answer }}</textarea>
+                     <textarea class="form-control" rows="10" name="answer">{{ $question->answer? :old("answer") }}</textarea>
                  </div>
               </div>
               <div class="form-group">
